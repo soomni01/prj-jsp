@@ -26,7 +26,10 @@
 </div>
 
 <div>
-    <button>삭제</button>
+    <form action="/board/delete" method="post">
+        <input type="hidden" name="id" value="${board.id}">
+        <button>삭제</button>
+    </form>
 </div>
 </body>
 </html>
