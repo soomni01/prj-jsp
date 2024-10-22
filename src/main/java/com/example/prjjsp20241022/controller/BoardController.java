@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -41,9 +42,14 @@ public class BoardController {
         return "redirect:/board/view";
     }
 
+    // /board/list
+    // /board/list?page=1
     @GetMapping("list")
-    public void listBoard(Model model) {
-        List<Board> list = service.list();
+    public void listBoard(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                          Model model) {
+        // 한 페이지에 10개의 게시물
+
+        List<Board> list = service.list(page);
         model.addAttribute("boardList", list);
     }
 

@@ -18,8 +18,12 @@ public class BoardService {
         mapper.insert(board);
     }
 
-    public List<Board> list() {
-        List<Board> list = mapper.selectAll();
+    public List<Board> list(Integer page) {
+        // 한 페이지에 10개
+        Integer offset = (page - 1) * 10;
+
+//        List<Board> list = mapper.selectAll();
+        List<Board> list = mapper.selectAllPaging(offset);
         return list;
     }
 
