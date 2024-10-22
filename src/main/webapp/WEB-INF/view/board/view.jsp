@@ -28,8 +28,10 @@
 <div>
     <form action="/board/delete" method="post">
         <input type="hidden" name="id" value="${board.id}">
+        ㄴ
         <button>삭제</button>
     </form>
 </div>
+<a href="/board/edit?id=${board.id}">수정</a>
 </body>
 </html>
