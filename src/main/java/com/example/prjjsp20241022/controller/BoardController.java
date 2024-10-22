@@ -54,8 +54,12 @@ public class BoardController {
     }
 
     @PostMapping("delete")
-    public String deleteBoard(Integer id) {
+    public String deleteBoard(Integer id, RedirectAttributes rttr) {
         service.remove(id);
+
+        rttr.addFlashAttribute("message",
+                Map.of("type", "warning",
+                        "text", "새 게시물이 등록되었습니다."));
 
         return "redirect:/board/list";
     }
@@ -69,6 +73,10 @@ public class BoardController {
     @PostMapping("edit")
     public String editBoard(Board board, RedirectAttributes rttr) {
         service.update(board);
+
+        rttr.addFlashAttribute("message",
+                Map.of("type", "success",
+                        "text", board.getId() + "번 게시물이 수정되었습니다."));
 
         rttr.addAttribute("id", board.getId());
         return "redirect:/board/view";
