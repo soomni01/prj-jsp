@@ -10,3 +10,11 @@ CREATE TABLE board
 );
 SELECT *
 FROM board;
+
+select COUNT(*)
+FROM board;
+# 페이징 연습용 게시물 복붙
+INSERT INTO board
+    (title, content, writer)
+SELECT title, content, writer
+FROM board;
