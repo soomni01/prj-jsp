@@ -28,10 +28,11 @@ public class BoardController {
     }
 
     @PostMapping("new")
-    public String newBoard(Board board) {
+    public String newBoard(Board board, RedirectAttributes rttr) {
         service.add(board);
 
-        return "redirect:/board/list";
+        rttr.addAttribute("id", board.getId());
+        return "redirect:/board/view";
     }
 
     @GetMapping("list")

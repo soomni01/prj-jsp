@@ -14,6 +14,7 @@ public interface BoardMapper {
             (title, content, writer)
             VALUES (#{title}, #{content}, #{writer})
             """)
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Board board);
 
     @Select("""
