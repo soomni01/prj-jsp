@@ -34,6 +34,9 @@ public class BoardService {
         Integer rightPageNumber = ((page - 1) / 10 + 1) * 10; // 현재 페이지 기준 오른쪽 끝 페이지 번호
         Integer leftPageNumber = rightPageNumber - 9; // 현재 페이지 기준 왼쪽 끝 페이지
 
+        // 오른쪽 끝페이지는 마지막 페이지보다 클 수 없음
+        rightPageNumber = Math.min(rightPageNumber, lastPageNumber);
+
         Map<String, Object> pageInfo = new HashMap<>();
 
         pageInfo.put("leftPageNumber", leftPageNumber);
