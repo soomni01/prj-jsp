@@ -39,4 +39,10 @@ public class MemberController {
     public void list(Model model) {
         model.addAttribute("memberList", service.list());
     }
+
+    @GetMapping("view")
+    public void info(String id, Model model) {
+        Member member = service.icfo(id);
+        model.addAttribute("member", member);
+    }
 }
