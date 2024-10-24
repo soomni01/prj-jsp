@@ -13,7 +13,9 @@
 </head>
 <body>
 
-<c:import url="/WEB-INF/fragment/navbar.jsp"/>
+<c:import url="/WEB-INF/fragment/navbar.jsp">
+    <c:param name="active" value="signup"/>
+</c:import>
 
 <div class="container">
     <div class="row justify-content-center">
