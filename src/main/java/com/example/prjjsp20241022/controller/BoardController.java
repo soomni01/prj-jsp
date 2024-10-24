@@ -64,7 +64,7 @@ public class BoardController {
 
         rttr.addFlashAttribute("message",
                 Map.of("type", "warning",
-                        "text", "새 게시물이 등록되었습니다."));
+                        "text", id + "번 게시물이 삭제되었습니다."));
 
         return "redirect:/board/list";
     }
