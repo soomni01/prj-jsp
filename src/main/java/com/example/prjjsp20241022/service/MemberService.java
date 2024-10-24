@@ -26,4 +26,9 @@ public class MemberService {
     public Member icfo(String id) {
         return mapper.selectById(id);
     }
+
+    public boolean remove(String id, String password) {
+        int cnt = mapper.deleteByIdAndPassword(id, password);
+        return cnt == 1;
+    }
 }
