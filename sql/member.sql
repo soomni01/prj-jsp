@@ -23,4 +23,4 @@ CREATE TABLE auth
 INSERT INTO auth
     (id, name)
 VALUES ('admin', 'admin'),
-       ('bdmin', 'bdmin');
+       ('bdmin', 'admin');
