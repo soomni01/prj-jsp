@@ -120,29 +120,47 @@ public class MemberController {
     }
 
     @GetMapping("edit-password")
-    public String editPassword(String id, Model model) {
-        model.addAttribute("id", id);
+    public String editPassword(String id,
+                               Model model,
+                               RedirectAttributes rttr,
+                               @SessionAttribute("loggedInMember") Member member) {
+        if (service.hasAccess(id, member)) {
+            model.addAttribute("id", id);
 
-        return "/member/editPassword";
+            return "/member/editPassword";
+
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "danger",
+                    "text", "권한이 없습니다."));
+            return "redirect:/member/login";
+        }
+
     }
 
     @PostMapping("edit-password")
     public String editPasswordProcess(String id,
                                       String oldPassword,
                                       String newPassword,
-                                      RedirectAttributes rttr) {
-        if (service.updatePassword(id, oldPassword, newPassword)) {
-            rttr.addFlashAttribute("message", Map.of("type", "success",
-                    "text", "암호가 변경되었습니다."));
-            rttr.addAttribute("id", id);
-            return "redirect:/member/view";
-        } else {
-            rttr.addFlashAttribute("message", Map.of("type", "warning",
-                    "text", "암호가 변경되지 않았습니다."));
-            rttr.addAttribute("id", id);
-            return "redirect:/member/edit-password";
-        }
+                                      RedirectAttributes rttr,
+                                      @SessionAttribute("loggedInMember") Member member) {
+        if (service.hasAccess(id, member)) {
 
+            if (service.updatePassword(id, oldPassword, newPassword)) {
+                rttr.addFlashAttribute("message", Map.of("type", "success",
+                        "text", "암호가 변경되었습니다."));
+                rttr.addAttribute("id", id);
+                return "redirect:/member/view";
+            } else {
+                rttr.addFlashAttribute("message", Map.of("type", "warning",
+                        "text", "암호가 변경되지 않았습니다."));
+                rttr.addAttribute("id", id);
+                return "redirect:/member/edit-password";
+            }
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "danger",
+                    "text", "권한이 없습니다."));
+            return "redirect:/member/login";
+        }
     }
 
     @GetMapping("login")
