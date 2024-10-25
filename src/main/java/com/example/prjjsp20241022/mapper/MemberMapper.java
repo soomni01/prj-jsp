@@ -43,4 +43,12 @@ public interface MemberMapper {
             WHERE id=#{id}
             """)
     int update(Member member);
+
+    @Update("""
+            UPDATE member
+            SET password = #{newPassword}
+            WHERE id = #{id}
+              AND password = #{oldPassword}
+            """)
+    int updatePassword(String id, String oldPassword, String newPassword);
 }

@@ -32,8 +32,11 @@
                 <label for="inputPassword1" class="form-label">
                     암호
                 </label>
-                <input value="${member.password}" readonly id="inputPassword1" name="password" type="text"
-                       class="form-control">
+                <div class="input-group mb-3">
+                    <input value="${member.password}" readonly id="inputPassword1" name="password" type="text"
+                           class="form-control">
+                    <a href="/member/edit-password?id=${member.id}" class="btn btn-outline-secondary">변경</a>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="inputNickName1" class="form-label">

@@ -87,4 +87,29 @@ public class MemberController {
         rttr.addAttribute("id", member.getId());
         return "redirect:/member/view";
     }
+
+    @GetMapping("edit-password")
+    public String editPassword(String id, Model model) {
+        model.addAttribute("id", id);
+
+        return "/member/editPassword";
+    }
+
+    @PostMapping("edit-password")
+    public String editPasswordProcess(String id,
+                                      String oldPassword,
+                                      String newPassword,
+                                      RedirectAttributes rttr) {
+        if (service.updatePassword(id, oldPassword, newPassword)) {
+            rttr.addFlashAttribute("message", Map.of("type", "success",
+                    "text", "암호가 변경되었습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/member/view";
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "암호가 변경되지 않았습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/member/edit-password";
+        }
+    }
 }
