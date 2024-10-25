@@ -12,15 +12,16 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<c:import url="/WEB-INF/fragment/navbar.jsp">
-    <c:param name="active" value="list"/>
-</c:import>
+<c:import url="/WEB-INF/fragment/navbar.jsp"/>
+
+<%--div.container>div.row>div.col>h2.my-3+form--%>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6">
             <h2 class="my-3">
                 회원 목록
             </h2>
+
             <table class="table">
                 <thead>
                 <tr>
@@ -32,13 +33,13 @@
                 <tbody>
                 <c:forEach items="${memberList}" var="member">
                     <tr>
-                        <th>
+                        <td>
                             <a href="/member/view?id=${member.id}">
                                     ${member.id}
                             </a>
-                        </th>
-                        <th>${member.nickName}</th>
-                        <th>${member.inserted}</th>
+                        </td>
+                        <td>${member.nickName}</td>
+                        <td>${member.inserted}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -46,6 +47,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
