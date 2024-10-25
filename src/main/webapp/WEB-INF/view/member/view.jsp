@@ -65,10 +65,10 @@
                     <i class="fa-solid fa-user-minus"></i>
                     탈퇴
                 </button>
-                <%--                <a class="btn btn-outline-primary" href="/board/edit?id=${board.id}">--%>
-                <%--                    <i class="fa-solid fa-pen-to-square"></i>--%>
-                <%--                    수정--%>
-                <%--                </a>--%>
+                <a class="btn btn-outline-primary" href="/member/edit?id=${member.id}">
+                    <i class="fa-solid fa-user-pen"></i>
+                    수정
+                </a>
             </div>
         </div>
     </div>

@@ -12,36 +12,29 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-
-<c:import url="/WEB-INF/fragment/navbar.jsp">
-    <c:param name="active" value="signup"/>
-</c:import>
+<c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6">
+
             <h2 class="my-3">
-                회원가입
+                회원 정보 수정
             </h2>
-            <form method="post">
+            <form action="/member/edit" method="post">
                 <%-- id, password, nickName, description --%>
                 <div class="mb-3">
                     <label for="inputId1" class="form-label">
                         아이디
                     </label>
-                    <input id="inputId1" name="id" type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="inputPassword1" class="form-label">
-                        암호
-                    </label>
-                    <input id="inputPassword1" name="password" type="text" class="form-control">
+                    <input value="${member.id}" id="inputId1" readonly name="id" type="text" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="inputNickName1" class="form-label">
                         별명
                     </label>
-                    <input id="inputNickName1" name="nickName" type="text" class="form-control">
+                    <input value="${member.nickName}" id="inputNickName1" name="nickName" type="text"
+                           class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="textareaDescription1" class="form-label">
@@ -52,12 +45,14 @@
                               class="form-control"
                               rows="10"
                               name="description">
+                        ${member.description}
                     </textarea>
+                   
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary">
-                        <i class="fa-solid fa-user-plus">
-                            가입
+                        <i class="fa-regular fa-floppy-disk">
+                            저장
                         </i>
                     </button>
                 </div>
@@ -65,7 +60,6 @@
         </div>
     </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
