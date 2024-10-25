@@ -35,8 +35,10 @@ public class BoardController {
     }
 
     @PostMapping("new")
-    public String newBoard(Board board, RedirectAttributes rttr) {
-        service.add(board);
+    public String newBoard(Board board,
+                           @SessionAttribute("loggedInMember") Member member,
+                           RedirectAttributes rttr) {
+        service.add(board, member);
 
         // addFlashAttribute : 메시지로 받기
         rttr.addFlashAttribute("message",

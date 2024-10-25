@@ -33,10 +33,6 @@
                     <textarea name="content" id="textareaContent1" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="inputWriter1" class="form-label">작성자</label>
-                    <input id="inputWriter1" name="writer" type="text" class="form-control">
-                </div>
-                <div class="mb-3">
                     <button class="btn btn-primary">
                         <i class="fa-regular fa-floppy-disk"></i>
                         저장
