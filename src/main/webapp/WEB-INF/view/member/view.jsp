@@ -16,7 +16,7 @@
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
 <%-- 수정/삭제 권한 --%>
-<c:if test="#{sessionScope.loggedInMember.id == model.id}" var="hasAccess"/>
+<c:if test="${sessionScope.loggedInMember.id == member.id}" var="hasAccess"/>
 
 <%--div.container>div.row>div.col--%>
 <div class="container">
@@ -67,7 +67,7 @@
                        readonly>
             </div>
             <div class="mb-3">
-                <c:if test="#{hasAccess}">
+                <c:if test="${hasAccess}">
                     <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
                         <i class="fa-solid fa-user-minus"></i>
                         탈퇴
