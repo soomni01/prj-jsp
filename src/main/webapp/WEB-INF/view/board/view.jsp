@@ -15,12 +15,13 @@
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
 <%-- 수정/삭제 권한 --%>
-<c:set value="${sessionScope.loggedInMember == board.writer}" var="hasAccess"/>
+<c:set value="${sessionScope.loggedInMember.id == board.writer}" var="hasAccess"/>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6">
-            <h2>${board.id}번 게시물</h2>
+
+            <h2 class="my-3">${board.id}번 게시물</h2>
 
             <div class="mb-3">
                 <label for="" class="form-label">
@@ -32,7 +33,7 @@
                 <label for="" class="form-label">
                     본문
                 </label>
-                <textarea class="form-control" name="" id="" cols="30" rows="10">${board.content}</textarea>
+                <textarea class="form-control" id="" rows="10" readonly>${board.content}</textarea>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">
@@ -44,25 +45,26 @@
                 <label for="" class="form-label">
                     작성일시
                 </label>
-                <input class="form-control" type="text" value="${board.inserted}" readonly>
+                <input class="form-control" type="datetime-local" value="${board.inserted}" readonly>
             </div>
 
             <c:if test="${hasAccess}">
                 <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
-                    <i class="fa-regular fa-trash-can"></i>
+                    <i class="fa-solid fa-trash-can"></i>
                     삭제
                 </button>
+                <a class="btn btn-outline-primary" href="/board/edit?id=${board.id}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    수정
+                </a>
             </c:if>
-            <a class="btn btn-outline-primary" href="/board/edit?id=${board.id}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                수정
-            </a>
 
             <c:if test="${hasAccess}">
                 <form id="deleteForm1" class="d-none" action="/board/delete" method="post">
                     <input type="hidden" name="id" value="${board.id}">
                 </form>
             </c:if>
+
         </div>
     </div>
 </div>
@@ -81,14 +83,18 @@
                         ${board.id}번 게시물을 삭제하시겠습니까?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                        <%-- 버튼 타입은 button이 아닌 submit(default)로 설정해야 함 --%>
-                    <button form="deleteForm1" class="btn btn-danger">삭제</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        닫기
+                    </button>
+                    <button form="deleteForm1" class="btn btn-danger">
+                        삭제
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </c:if>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

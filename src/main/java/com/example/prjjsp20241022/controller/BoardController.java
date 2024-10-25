@@ -88,9 +88,21 @@ public class BoardController {
     }
 
     @GetMapping("edit")
-    public void editBoard(Integer id, Model model) {
+    public String editBoard(Integer id,
+                            Model model,
+                            RedirectAttributes rttr,
+                            @SessionAttribute("loggedInMember") Member member) {
+
         Board board = service.get(id);
-        model.addAttribute("board", board);
+        if (board.getWriter().equals(member.getId())) {
+            model.addAttribute("board", board);
+            return null;
+        } else {
+            rttr.addFlashAttribute("message",
+                    Map.of("type", "danger",
+                            "text", "게시물 수정 권한이 없습니다."));
+            return "redirect:/member/login";
+        }
     }
 
     @PostMapping("edit")

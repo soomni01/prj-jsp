@@ -34,6 +34,7 @@
                     <textarea id="textareaContent1" class="form-control" name="content"
                               rows="10">${board.content}</textarea>
                 </div>
+
                 <div class="mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#updateConfirmModal1">
