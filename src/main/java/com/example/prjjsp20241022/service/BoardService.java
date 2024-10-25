@@ -72,7 +72,12 @@ public class BoardService {
         }
     }
 
-    public void update(Board board) {
-        mapper.update(board);
+    public void update(Board board, Member member) {
+        Board board1 = mapper.selectById(board.getId());
+        if (board1.getWriter().equals(member.getId())) {
+            mapper.update(board);
+        } else {
+            throw new RuntimeException("수정 권한이 없습니다.");
+        }
     }
 }
