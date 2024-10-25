@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
@@ -38,8 +39,19 @@ public class MemberController {
     }
 
     @GetMapping("list")
-    public void list(Model model) {
-        model.addAttribute("memberList", service.list());
+    public String list(@SessionAttribute(value = "loggedInMember", required = false) Member member, Model model, RedirectAttributes rttr) {
+        if (member == null) {
+            // 로그인 안 한 상태
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "로그인한 회원만 회원 목록을 볼 수 있습니다."));
+            return "redirect:/member/login";
+        } else {
+            // 로그인 한 상태
+            // /WEB-INF/view/board/new.jsp
+            model.addAttribute("memberList", service.list());
+            return "null";
+        }
+
     }
 
     @GetMapping("view")
@@ -137,7 +149,7 @@ public class MemberController {
                     "text", "로그인 되었습니다."));
 
             session.setAttribute("loggedInMember", member);
-            
+
             return "redirect:/board/list";
         }
     }
