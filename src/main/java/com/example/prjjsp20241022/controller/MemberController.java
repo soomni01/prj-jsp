@@ -22,6 +22,7 @@ public class MemberController {
 
     private final MemberService service;
 
+
     @GetMapping("signup")
     public void signup() {
 
@@ -39,19 +40,19 @@ public class MemberController {
     }
 
     @GetMapping("list")
-    public String list(@SessionAttribute(value = "loggedInMember", required = false) Member member, Model model, RedirectAttributes rttr) {
+    public String list(
+            @SessionAttribute(value = "loggedInMember", required = false)
+            Member member,
+            Model model,
+            RedirectAttributes rttr) {
         if (member == null) {
-            // 로그인 안 한 상태
             rttr.addFlashAttribute("message", Map.of("type", "warning",
                     "text", "로그인한 회원만 회원 목록을 볼 수 있습니다."));
             return "redirect:/member/login";
         } else {
-            // 로그인 한 상태
-            // /WEB-INF/view/board/new.jsp
             model.addAttribute("memberList", service.list());
-            return "/member/list";
+            return null;
         }
-
     }
 
     @GetMapping("view")
@@ -63,30 +64,35 @@ public class MemberController {
     @PostMapping("delete")
     public String delete(String id,
                          String password,
-                         RedirectAttributes rttr,
                          HttpSession session,
+                         RedirectAttributes rttr,
                          @SessionAttribute("loggedInMember") Member member) {
+
         if (service.hasAccess(id, member)) {
             if (service.remove(id, password)) {
                 // 탈퇴 성공
                 rttr.addFlashAttribute("message", Map.of("type", "dark",
                         "text", "회원 탈퇴하였습니다."));
+
                 session.invalidate();
                 return "redirect:/member/signup";
             } else {
                 // 탈퇴 실패
-                rttr.addFlashAttribute("message", Map.of("type",
-                        "danger", "text", "패스워드가 일치하지 않습니다."));
+                rttr.addFlashAttribute("message", Map.of("type", "danger",
+                        "text", "패스워드가 일치하지 않습니다."));
                 rttr.addAttribute("id", id);
-                System.out.println("password = " + password);
+
                 return "redirect:/member/view";
             }
         } else {
             rttr.addFlashAttribute("message", Map.of("type", "danger",
                     "text", "권한이 없습니다."));
+
             session.invalidate();
             return "redirect:/member/login";
         }
+
+
     }
 
     @GetMapping("edit")
@@ -100,14 +106,14 @@ public class MemberController {
             service.update(member);
             rttr.addFlashAttribute("message", Map.of("type", "success",
                     "text", "회원정보가 수정되었습니다."));
+
         } catch (DuplicateKeyException e) {
             rttr.addFlashAttribute("message", Map.of("type", "danger",
-                    "text", STR."\{member.getNickName()}이미 사용된 별명입니다."));
+                    "text", STR."\{member.getNickName()}은 이미 사용중인 별명입니다."));
 
             rttr.addAttribute("id", member.getId());
             return "redirect:/member/edit";
         }
-
 
         rttr.addAttribute("id", member.getId());
         return "redirect:/member/view";
@@ -136,6 +142,7 @@ public class MemberController {
             rttr.addAttribute("id", id);
             return "redirect:/member/edit-password";
         }
+
     }
 
     @GetMapping("login")
@@ -146,24 +153,22 @@ public class MemberController {
     @PostMapping("login")
     public String loginProcess(String id, String password,
                                RedirectAttributes rttr,
-                               HttpSession session
-    ) {
+                               HttpSession session) {
         Member member = service.get(id, password);
 
         if (member == null) {
             // 로그인 실패
-            rttr.addFlashAttribute("message", Map.of("type", "warning",
-                    "text", "일치하는 아이디나 패스워드가 없습니다."));
+            rttr.addFlashAttribute("message", Map.of("type", "warning"
+                    , "text", "일치하는 아이디나 패스워드가 없습니다."));
             return "redirect:/member/login";
         } else {
             // 로그인 성공
-            rttr.addFlashAttribute("message", Map.of("type", "success",
-                    "text", "로그인 되었습니다."));
-
+            rttr.addFlashAttribute("message", Map.of("type", "success"
+                    , "text", "로그인 되었습니다."));
             session.setAttribute("loggedInMember", member);
-
             return "redirect:/board/list";
         }
+
     }
 
     @RequestMapping("logout")
@@ -175,4 +180,6 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
+
+
 }

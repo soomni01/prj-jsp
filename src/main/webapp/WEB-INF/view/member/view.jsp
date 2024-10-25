@@ -15,6 +15,9 @@
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
+<%-- 수정/삭제 권한 --%>
+<c:if test="#{sessionScope.loggedInMember.id == model.id}" var="hasAccess"/>
+
 <%--div.container>div.row>div.col--%>
 <div class="container">
     <div class="row justify-content-center">
@@ -64,20 +67,23 @@
                        readonly>
             </div>
             <div class="mb-3">
-                <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
-                    <i class="fa-solid fa-user-minus"></i>
-                    탈퇴
-                </button>
-                <a class="btn btn-outline-primary" href="/member/edit?id=${member.id}">
-                    <i class="fa-solid fa-user-pen"></i>
-                    수정
-                </a>
+                <c:if test="#{hasAccess}">
+                    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
+                        <i class="fa-solid fa-user-minus"></i>
+                        탈퇴
+                    </button>
+                    <a class="btn btn-outline-primary" href="/member/edit?id=${member.id}">
+                        <i class="fa-solid fa-user-pen"></i>
+                        수정
+                    </a>
+                </c:if>
             </div>
         </div>
     </div>
 </div>
 
 
+<c:if test="${hasAccess}"></c:if>
 <!-- Modal -->
 <div class="modal fade" id="deleteConfirmModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
