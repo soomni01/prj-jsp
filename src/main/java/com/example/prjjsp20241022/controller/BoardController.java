@@ -25,7 +25,7 @@ public class BoardController {
         if (member == null) {
             // 로그인 안 한 상태
             rttr.addFlashAttribute("message", Map.of("type", "warning",
-                    "text", "로그인한 회원만글 작성이 가능합니다."));
+                    "text", "로그인한 회원만 글 작성이 가능합니다."));
             return "redirect:/member/login";
         } else {
             // 로그인 한 상태
