@@ -21,6 +21,9 @@ public class BoardController {
 
     // /board/new
     @GetMapping("new")
+
+    // required = false로 설정하면, 세션에 해당 속성이 없더라도 오류가 발생하지 않습니다.
+    // 즉, loggedInMember가 세션에 없을 경우 null로 처리됩니다.
     public String newBoard(@SessionAttribute(value = "loggedInMember", required = false) Member member, RedirectAttributes rttr) {
         if (member == null) {
             // 로그인 안 한 상태
@@ -36,6 +39,8 @@ public class BoardController {
 
     @PostMapping("new")
     public String newBoard(Board board,
+                           // required 속성이 기본값인 true로 설정 -> 세션에 loggedInMember가 없으면 예외가 발생.
+                           // 즉, 필수 속성으로 간주됩니다.
                            @SessionAttribute("loggedInMember") Member member,
                            RedirectAttributes rttr) {
         service.add(board, member);
