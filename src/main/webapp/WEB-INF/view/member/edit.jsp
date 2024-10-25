@@ -44,10 +44,7 @@
                               type="text"
                               class="form-control"
                               rows="10"
-                              name="description">
-                        ${member.description}
-                    </textarea>
-                   
+                              name="description">${member.description}</textarea>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary">
