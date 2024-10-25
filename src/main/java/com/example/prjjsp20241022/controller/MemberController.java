@@ -49,7 +49,7 @@ public class MemberController {
             // 로그인 한 상태
             // /WEB-INF/view/board/new.jsp
             model.addAttribute("memberList", service.list());
-            return "null";
+            return "/member/list";
         }
 
     }

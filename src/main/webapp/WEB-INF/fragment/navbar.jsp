@@ -21,7 +21,7 @@
                             목록
                         </a>
                     </li>
-                    
+
                     <c:if test="${loggedIn}">
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'new' ? 'active' : ''}" href="/board/new">
@@ -66,6 +66,11 @@
                             </a>
                         </li>
                     </c:if>
+
+                    <li>
+                        <%--TODO: 지우거나 업데이트할 것..--%>
+                        로그인: ${sessionScope.loggedInMember.id}
+                    </li>
                 </ul>
             </div>
         </div>
