@@ -112,4 +112,26 @@ public class MemberController {
             return "redirect:/member/edit-password";
         }
     }
+
+    @GetMapping("login")
+    public void login() {
+
+    }
+
+    @PostMapping("login")
+    public String loginProcess(String id, String password, RedirectAttributes rttr) {
+        Member member = service.get(id, password);
+
+        if (member == null) {
+            // 로그인 실패
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "일치하는 아이디나 패스워드가 없습니다."));
+            return "redirect:/member/login";
+        } else {
+            // 로그인 성공
+            rttr.addFlashAttribute("message", Map.of("type", "success",
+                    "text", "로그인 되었습니다."));
+            return "redirect:/board/list";
+        }
+    }
 }

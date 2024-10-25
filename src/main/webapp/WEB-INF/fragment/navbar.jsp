@@ -30,11 +30,16 @@
                             회원가입
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/member/list">
                             <i class="fa-regular fa-address-book"></i>
                             회원목록
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${param.active == 'login' ? 'active' : ''}" href="/member/login">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            로그인
                         </a>
                     </li>
                 </ul>
