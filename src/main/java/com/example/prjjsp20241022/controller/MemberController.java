@@ -45,13 +45,14 @@ public class MemberController {
             Member member,
             Model model,
             RedirectAttributes rttr) {
-        if (member == null) {
-            rttr.addFlashAttribute("message", Map.of("type", "warning",
-                    "text", "로그인한 회원만 회원 목록을 볼 수 있습니다."));
-            return "redirect:/member/login";
-        } else {
+
+        if (member != null && member.getAuth().contains("admin")) {
             model.addAttribute("memberList", service.list());
             return null;
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "관리자만 회원 목록을 볼 수 있습니다."));
+            return "redirect:/member/login";
         }
     }
 
