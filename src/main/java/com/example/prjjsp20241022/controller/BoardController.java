@@ -58,10 +58,12 @@ public class BoardController {
     // /board/list?page=1
     @GetMapping("list")
     public void listBoard(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                          @RequestParam(required = false) String searchTarget,
+                          @RequestParam(defaultValue = "") String keyword,
                           Model model) {
         // 한 페이지에 10개의 게시물
 
-        Map<String, Object> result = service.list(page);
+        Map<String, Object> result = service.list(page, searchTarget, keyword);
         model.addAllAttributes(result);
     }
 
