@@ -1,6 +1,7 @@
 package com.example.prjjsp20241022.service;
 
 import com.example.prjjsp20241022.dto.Member;
+import com.example.prjjsp20241022.mapper.BoardMapper;
 import com.example.prjjsp20241022.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberMapper mapper;
+    private final BoardMapper boardMapper;
 
     public void addMember(Member member) {
         mapper.insert(member);
@@ -28,7 +30,14 @@ public class MemberService {
     }
 
     public boolean remove(String id, String password) {
-        int cnt = mapper.deleteByIdAndPassword(id, password);
+        // 게시물(board) 먼저 삭제 후
+        // 회원(member) 삭제
+        int cnt = 0;
+        Member member = mapper.selectById(id);
+        if (member.getPassword().equals(password)) {
+            boardMapper.deleteByMemberId(id);
+            cnt = mapper.deleteByIdAndPassword(id, password);
+        }
         return cnt == 1;
     }
 
