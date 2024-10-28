@@ -60,7 +60,8 @@ public class BoardService {
     }
 
     public Board get(Integer id) {
-        return mapper.selectById(id);
+        Board board = mapper.selectById(id);
+        return board;
     }
 
     public void remove(Integer id, Member member) {
