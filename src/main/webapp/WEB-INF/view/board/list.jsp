@@ -28,7 +28,7 @@
                     </th>
                     <th class="w-50">제목</th>
                     <th>
-                        <i class="fa-solid fa-user"></i>
+                        <i class="fa-regular fa-user"></i>
                     </th>
                     <th class="d-none d-lg-table-cell">
                         <i class="fa-regular fa-calendar-days"></i>
@@ -48,27 +48,29 @@
                         <td class="d-none d-lg-table-cell">${board.inserted}</td>
                     </tr>
                 </c:forEach>
+
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>
 
-
 <%-- 검색 form --%>
-<%-- TODO: CSS 다듬기--%>
+<%-- TODO : css 다듬기 --%>
+<%--div.container>div.row>div.col-2+div.col-4+div.col-1--%>
 <div class="container">
     <form class="row justify-content-center">
         <div class="col-2 col-lg-1">
             <select name="searchTarget" id="select1" class="form-select">
                 <option value="all">전체</option>
-                <option value="title">제목</option>
-                <option value="content">본문</option>
-                <option value="writer">작성자</option>
+                <option value="title" ${param.searchTarget == 'title' ? 'selected' : ''}>제목</option>
+                <option value="content" ${param.searchTarget == 'content' ? 'selected' : ''}>본문</option>
+                <option value="writer" ${param.searchTarget == 'writer' ? 'selected' : ''}>작성자</option>
             </select>
         </div>
         <div class="col-4 col-lg-2">
-            <input type="text" class="form-control" name="keyword">
+            <input type="text" class="form-control" name="keyword" value="${param.keyword}">
         </div>
         <div class="col-1">
             <button class="btn btn-outline-primary h-100">
@@ -78,7 +80,7 @@
     </form>
 </div>
 
-<<%-- bootstrap pagination --%>
+<%-- bootstrap pagination --%>
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
         <c:if test="${pageInfo.hasPrevPage}">
@@ -104,6 +106,7 @@
         </c:if>
     </ul>
 </nav>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
