@@ -84,8 +84,13 @@
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
         <c:if test="${pageInfo.hasPrevPage}">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="${pageInfo.prevPageNumber}"></c:param>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
             <li class="page-item">
-                <a href="/board/list?page=${pageInfo.prevPageNumber}" class="page-link">
+                <a href="${pageLink}" class="page-link">
                     &laquo;
                 </a>
             </li>
@@ -103,8 +108,13 @@
             </li>
         </c:forEach>
         <c:if test="${pageInfo.hasNextPage}">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="${pageInfo.nextPageNumber}"></c:param>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
             <li class="page-item">
-                <a href="/board/list?page=${pageInfo.nextPageNumber}" class="page-link">
+                <a href="${pageLink}" class="page-link">
                     &raquo;
                 </a>
             </li>
